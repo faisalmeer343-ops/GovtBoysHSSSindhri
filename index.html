@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Govt Boys HSS Sindhri · admin edit ready</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter + Poppins (clean) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0f5fb;
+            font-family: 'Inter', sans-serif;
+            color: #1e2f3e;
+            padding: 18px 14px;
+        }
+        .dashboard {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 42px 42px 32px 32px;
+            box-shadow: 0 30px 60px -15px #1e3a5f40;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        /* header (first version style + HM prominence) */
+        .header {
+            background: linear-gradient(145deg, #0b2d4e, #123f64);
+            color: white;
+            padding: 24px 32px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 5px solid #f6b83e;
+        }
+        .header h1 {
+            font-weight: 700;
+            font-size: 2.1rem;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header h1 i {
+            background: #f6b83e;
+            color: #0b2d4e;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        .hm-special {
+            background: #ffffff20;
+            backdrop-filter: blur(8px);
+            padding: 12px 32px 12px 24px;
+            border-radius: 60px;
+            border: 1px solid #f6b83e80;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        .hm-special i {
+            font-size: 2rem;
+            color: #f9cf7a;
+        }
+        .hm-special span { color: white; }
+        .hm-special .hm-title {
+            background: #f6b83e;
+            color: #0b2d4e;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        /* navigation bar */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            background: white;
+            padding: 14px 26px;
+            border-bottom: 1px solid #dee9f2;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            box-shadow: 0 8px 16px -8px #b3c9df;
+        }
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 22px;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            color: #1c405e;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            border: 1px solid transparent;
+        }
+        .nav-btn i { color: #1f4b73; font-size: 1.2rem; }
+        .nav-btn:hover {
+            background: #e5eefb;
+            border-color: #b8d1ed;
+        }
+        .nav-btn.active {
+            background: #0b2d4e;
+            color: white;
+            box-shadow: 0 10px 20px #0b2d4e40;
+        }
+        .nav-btn.active i { color: #f6d88c; }
+        /* panels */
+        .panel {
+            display: none;
+            padding: 28px 30px;
+            background: #ffffff;
+        }
+        .panel.active-panel { display: block; }
+        /* edit bar — appears inside each panel */
+        .edit-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 24px;
+            gap: 12px;
+        }
+        .edit-btn {
+            background: #f8fafd;
+            border: 2px solid #cadef0;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1d486b;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .edit-btn i { color: #f6b83e; }
+        .edit-btn:hover { background: #e2ecf9; border-color: #a1bedd; }
+        .save-btn {
+            background: #1d6f3c;
+            border: none;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        /* cards etc (first version style) */
+        .card {
+            background: #f9fbfe;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 6px 20px #dce7f3;
+            border: 1px solid white;
+            margin-bottom: 26px;
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 1.8rem;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 8px solid #f6b83e;
+            padding-left: 20px;
+        }
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 24px;
+        }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+        /* staff grid (beautiful) */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+        }
+        .staff-card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px 12px 16px;
+            text-align: center;
+            border: 1px solid #e3ecf5;
+            transition: 0.2s;
+            box-shadow: 0 6px 14px #c1d6ec50;
+        }
+        .staff-card.hm-highlight {
+            background: #fff6e5;
+            border: 2px solid #f6b83e;
+            transform: scale(1.02);
+        }
+        .staff-img {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, #d2e2f5, #ecf3fc);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #1e4a76;
+            border: 4px solid white;
+        }
+        .staff-name { font-weight: 700; }
+        .staff-post { color: #1e4a76; font-weight: 500; }
+        /* notice item */
+        .notice-item {
+            background: white;
+            padding: 18px 24px;
+            border-radius: 60px;
+            margin-bottom: 12px;
+            border-left: 8px solid #f6b83e;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-weight: 500;
+            box-shadow: 0 2px 12px #dbe6f1;
+        }
+        .filename-tip {
+            background: #1d3d5e;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 60px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        .zero-badge {
+            background: #f2f7ff;
+            border-radius: 60px;
+            padding: 26px;
+            text-align: center;
+            border: 3px dashed #acc6e3;
+            font-size: 1.2rem;
+        }
+        /* mobile */
+        @media (max-width:600px) {
+            .header { flex-direction: column; align-items: start; }
+            .nav-bar { flex-wrap: nowrap; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <!-- header with HM prominent (like first version but better) -->
+    <div class="header">
+        <h1><i class="fas fa-school"></i> Govt Boys HSS Sindhri</h1>
+        <div class="hm-special">
+            <i class="fas fa-star"></i>
+            <span>Mr. Mir Muhammad Siddiqi</span>
+            <span class="hm-title">Head Master</span>
+        </div>
+    </div>
+
+    <!-- navigation (each panel has its own edit button) -->
+    <div class="nav-bar" id="mainNav">
+        <button class="nav-btn active" data-panel="dash"><i class="fas fa-th-large"></i> Dashboard</button>
+        <button class="nav-btn" data-panel="admission"><i class="fas fa-file-signature"></i> Admission</button>
+        <button class="nav-btn" data-panel="staff"><i class="fas fa-chalkboard-user"></i> Staff</button>
+        <button class="nav-btn" data-panel="notice"><i class="fas fa-bullhorn"></i> Notice</button>
+        <button class="nav-btn" data-panel="events"><i class="fas fa-calendar-check"></i> Events</button>
+        <button class="nav-btn" data-panel="slc"><i class="fas fa-certificate"></i> SLC</button>
+        <button class="nav-btn" data-panel="timetable"><i class="fas fa-table"></i> Timetable</button>
+        <button class="nav-btn" data-panel="classdata"><i class="fas fa-layer-group"></i> Class data</button>
+        <button class="nav-btn" data-panel="students"><i class="fas fa-upload"></i> Students</button>
+    </div>
+
+    ================================================================= --%}
+    <!-- DASHBOARD PANEL (zero students, no assumed dates) -->
+    <div id="dash" class="panel active-panel">
+        <div class="edit-controls">
+            <button class="edit-btn" onclick="alert('Edit dashboard: you can modify stats, notices etc.')"><i class="fas fa-pen"></i> Edit dashboard</button>
+            <button class="save-btn" onclick="alert('Changes saved (demo)')"><i class="fas fa-check"></i> Save</button>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 class="card-title"><i class="fas fa-gauge-high"></i> Dashboard</h2>
+            <span class="filename-tip"><i class="fab fa-github"></i> govt-hss-sindhri.html</span>
+        </div>
+        <!-- zero students as required -->
+        <div class="card zero-badge">
+            <i class="fas fa-database fa-3x" style="color:#9fb3d0;"></i>
+            <h3 style="margin: 16px 0;">Total students: 0 (no admission entries yet)</h3>
+            <p>Use admission form to add students. All class counts are zero.</p>
+            <button class="edit-btn" style="margin-top:14px;" onclick="switchPanel('admission')"><i class="fas fa-arrow-right"></i> Go to admission</button>
+        </div>
+        <div class="grid-2">
+            <div class="card"><i class="fas fa-chart-pie"></i> No data to display — edit to add content.</div>
+            <div class="card"><i class="fas fa-clock"></i> All dates can be edited via edit button.</div>
+        </div>
+    </div>
+
+    <!-- ADMISSION PANEL (fee system removed) -->
+    <div id="admission" class="panel">
+        <div class="edit-controls">
+            <button class="edit-btn" onclick="alert('Edit admission form fields or validation')"><i class="fas fa-pen"></i> Edit form</button>
+            <button class="save-btn" onclick="alert('Form settings saved')"><i class="fas fa-check"></i> Save</button>
+        </div>
+        <h2 class="card-title"><i class="fas fa-pen-to-square"></i> Admission form (fee removed)</h2>
+        <div class="card">
+            <form id="admissionForm" onsubmit="event.preventDefault(); alert('Admission recorded (demo). Student count remains zero until you add data.');">
+                <div class="grid-2">
+                    <div><label>Full name</label><input class="form-control" placeholder="e.g. Muhammad Ali"></div>
+                    <div><label>Father/Guardian name</label><input class="form-control" placeholder="Mir Muhammad"></div>
+                    <div><label>Caste</label><input class="form-control" placeholder="Siddiqi"></div>
+                    <div><label>Date of Birth (fig)</label><input type="date" class="form-control"></div>
+                    <div><label>DOB (words)</label><input class="form-control" placeholder="twentieth May 2012"></div>
+                    <div><label>Place of birth</label><input class="form-control" value="Sindhri"></div>
+                    <div><label>Gender</label><select class="form-control"><option>Male</option><option>Female</option></select></div>
+                    <div><label>Religion</label><select class="form-control"><option>Islam</option><option>Other</option></select></div>
+                    <div><label>Class for admission</label><select class="form-control"><option>Pre-School</option><option>I</option><option>II</option><option>III</option><option>IV</option><option>V</option><option>VI</option><option>VII</option><option>VIII</option><option>IX</option><option>X</option><option>XI</option><option>XII</option></select></div>
+                    <div><label>Last school</label><input class="form-control" placeholder="Govt Primary"></div>
+                    <div><label>Class attending now</label><input class="form-control" placeholder="V"></div>
+                    <div><label>Address</label><input class="form-control" placeholder="Ward 3"></div>
+                    <div><label>Taluka</label><input class="form-control" value="Sindhri"></div>
+                    <div><label>District</label><input class="form-control" value="Mirpur Khas"></div>
+                    <div><label>Mobile No</label><input class="form-control" placeholder="03xx-xxxxxxx"></div>
+                    <div><label>WhatsApp No</label><input class="form-control" placeholder="03xx-xxxxxxx"></div>
+                </div>
+                <!-- fee field entirely omitted -->
+                <button type="submit" class="edit-btn" style="background:#1d4e7c; color:white; border:none; margin-top:20px;"><i class="fas fa-check"></i> Submit admission</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- STAFF PANEL (with search and edit) -->
+    <div id="staff" class="panel">
+        <div class="edit-controls">
+            <button class="edit-btn" onclick="alert('Edit staff list, add photo upload')"><i class="fas fa-pen"></i> Edit staff</button>
+            <button class="save-btn" onclick="alert('staff data saved')"><i class="fas fa-check"></i> Save</button>
+        </div>
+        <h2 class="card-title"><i class="fas fa-people-group"></i> Staff directory</h2>
+        <div class="search-box" style="display:flex; align-items:center; background:#f2f7fd; border-radius:60px; padding:4px 4px 4px 20px; max-width:400px; margin-bottom:30px;">
+            <i class="fas fa-search" style="color:#1e4a76;"></i>
+            <input type="text" id="staffSearch" placeholder="Search by name..." style="border:none; background:transparent; padding:14px; flex:1;">
+            <button id="searchBtnStaff" style="background:#1e4a76; border:none; color:white; padding:12px 26px; border-radius:50px;">Go</button>
+        </div>
+        <div class="staff-grid" id="staffContainer"></div>
+    </div>
+
+    <!-- NOTICE BOARD (edit button to change notices) -->
+    <div id="notice" class="panel">
+        <div class="edit-controls">
+            <button class="edit-btn" onclick="editNotices()"><i class="fas fa-pen"></i> Edit notices</button>
+            <button class="save-btn" onclick="saveNotices()"><i class="fas fa-check"></i> Save</button>
+        </div>
+        <h2 class="card-title"><i class="fas fa-bell"></i> Notice board</h2>
+        <div id="noticeContainer">
+            <div class="notice-item"><i class="fas fa-calendar"></i> School re-opening after holidays: edit to set date</div>
+            <div class="notice-item"><i class="fas fa-megaphone"></i> Parent teacher meeting: click edit to schedule</div>
+        </div>
+        <p class="edit-btn" style="display:inline-block; margin-top:12px;" onclick="editNotices()"><i class="fas fa-plus-circle"></i> Add notice</p>
+    </div>
+
+    <!-- EVENTS PANEL -->
+    <div id="events" class="panel">
+        <div class="edit-controls"><button class="edit-btn" onclick="alert('Edit events')">Edit events</button><button class="save-btn">Save</button></div>
+        <h2 class="card-title"><i class="fas fa-star"></i> Events & activities</h2>
+        <div class="card">Sports day: edit to set date<br> Qirat competition: edit to set date</div>
+    </div>
+
+    <!-- SLC PANEL (school leaving certificate) -->
+    <div id="slc" class="panel">
+        <div class="edit-controls"><button class="edit-btn" onclick="alert('Edit certificate template')">Edit SLC</button><button class="save-btn">Save</button></div>
+        <h2 class="card-title"><i class="fas fa-scroll"></i> School leaving certificate</h2>
+        <div class="card" style="background:#fffef7;">[Certificate will be generated from admission data. Edit to modify layout.]</div>
+    </div>
+
+    <!-- TIMETABLE PANEL -->
+    <div id="timetable" class="panel">
+        <div class="edit-controls"><button class="edit-btn" onclick="alert('Upload excel or edit timetable')">Edit timetable</button><button class="save-btn">Save</button></div>
+        <h2 class="card-title"><i class="fas fa-table"></i> Timetable (Excel upload)</h2>
+        <div class="card"><i class="fas fa-file-excel"></i> Upload via edit button – slide view available.</div>
+    </div>
+
+    <!-- CLASS DATA PANEL (zero students) -->
+    <div id="classdata" class="panel">
+        <div class="edit-controls"><button class="edit-btn" onclick="alert('Edit class wise data')">Edit class data</button><button class="save-btn">Save</button></div>
+        <h2 class="card-title"><i class="fas fa-people-arrows"></i> Class wise data (pre-school to XII)</h2>
+        <div class="card zero-badge">All classes: 0 boys, 0 girls (awaiting admission entries)</div>
+    </div>
+
+    <!-- STUDENTS UPLOAD -->
+    <div id="students" class="panel">
+        <div class="edit-controls"><button class="edit-btn" onclick="alert('Enable student upload facility')">Edit upload</button><button class="save-btn">Save</button></div>
+        <h2 class="card-title"><i class="fas fa-cloud-upload-alt"></i> Student data upload</h2>
+        <div class="card">Zero records. Use upload or admission form.</div>
+    </div>
+</div>
+
+<!-- staff data from list (with HM highlight) -->
+<script>
+    // staff list (exactly as first version)
+    const staff = [
+        { name: "Mr. Mir Muhammad Siddiqi", post: "Head Master", hm: true },
+        { name: "Mr. Aamir Ali", post: "JEST F.A" }, { name: "Mr. M. Akram", post: "HST" },
+        { name: "Mr. Muhammad Siddique", post: "HST" }, { name: "Ms Fareha Bangash", post: "SST" },
+        { name: "Mr. Nazeer Ali", post: "JST" }, { name: "Mr. Khushhal", post: "JEST" },
+        { name: "Mr. Hemoon", post: "JEST" }, { name: "Mr. Sadam Hussain", post: "JEST" },
+        { name: "Mr. Dileep Kumar", post: "Staff" }, { name: "Mr. Abdul Qayoom", post: "JEST" },
+        { name: "Mr. Qari Hafiz M. Saleem", post: "OT" }, { name: "Mr. Imran Khan", post: "OT" },
+        { name: "Mr. Bilawal", post: "AWI" }, { name: "Mr. Aashiq Ali", post: "Naib Qasid" }
+    ];
+
+    function renderStaff(filter = '') {
+        const cont = document.getElementById('staffContainer');
+        if (!cont) return;
+        let filtered = staff.filter(s => s.name.toLowerCase().includes(filter.toLowerCase()) || s.post.toLowerCase().includes(filter.toLowerCase()));
+        let html = '';
+        filtered.forEach(s => {
+            html += `<div class="staff-card ${s.hm ? 'hm-highlight' : ''}">
+                <div class="staff-img"><i class="fas fa-user"></i></div>
+                <div class="staff-name">${s.name}</div>
+                <div class="staff-post">${s.post}</div>
+            </div>`;
+        });
+        cont.innerHTML = html || '<div class="card">No matching staff</div>';
+    }
+
+    document.getElementById('searchBtnStaff')?.addEventListener('click', ()=>{
+        let val = document.getElementById('staffSearch')?.value || '';
+        renderStaff(val);
+    });
+    renderStaff();
+
+    // navigation switching (same robust method)
+    const panels = document.querySelectorAll('.panel');
+    const navBtns = document.querySelectorAll('.nav-btn');
+    function switchPanel(panelId) {
+        panels.forEach(p => p.classList.remove('active-panel'));
+        navBtns.forEach(b => b.classList.remove('active'));
+        const target = document.getElementById(panelId);
+        if (target) target.classList.add('active-panel');
+        const activeBtn = Array.from(navBtns).find(btn => btn.dataset.panel === panelId);
+        if (activeBtn) activeBtn.classList.add('active');
+    }
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => switchPanel(btn.dataset.panel));
+    });
+    window.switchPanel = switchPanel;
+
+    // edit functions for notice (no hardcoded dates)
+    function editNotices() {
+        let container = document.getElementById('noticeContainer');
+        let items = container.querySelectorAll('.notice-item');
+        let newText = prompt('Edit notice text (first notice):', items[0]?.innerText.replace(/<.*?>/g,'') || '');
+        if (newText) {
+            items[0].innerHTML = '<i class="fas fa-calendar"></i> ' + newText;
+        }
+    }
+    function saveNotices() { alert('Notice changes saved (demo).'); }
+    window.editNotices = editNotices; window.saveNotices = saveNotices;
+
+    // no random dates anywhere – all placeholders, controlled by edit buttons.
+</script>
+
+<!-- basic style for form-controls -->
+<style>
+    .form-control { width:100%; padding:14px 18px; border:2px solid #dbe4f0; border-radius:40px; font-size:1rem; background:#ffffff; }
+    .form-control:focus { border-color:#f6b83e; outline:none; }
+    .search-box input:focus { outline: none; }
+</style>
+
+<footer style="max-width:1500px; margin:16px auto 0; padding-left:20px;">
+    <i class="fas fa-code-branch"></i> Github: index.html (govt-hss-enhanced.html) – All panels include edit button, no hardcoded dates, zero students.
+</footer>
+</body>
+</html>
